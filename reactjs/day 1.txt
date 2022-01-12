@@ -1,0 +1,71 @@
+React Js Course - Day 1 
+
+1. How to install react js - npx create-react-app my-app
+ npm start 
+2. Remove - delete all files into src folder expect index.js file 
+
+
+**********************************
+React Basics Tutorial 
+a. video Name - First Component
+1.  index.js 
+import react from 'react'
+import ReactDom from 'react-dom';
+
+function Greeting(){
+ return <h4> this is john and this is my first component </h4>;
+}
+
+ReactDom.render(<Greeting />, document.getElementById('root')); 
+
+Note - ReactDom help to render the value,
+to create component we need to import react
+
+b. text eiditor setup 
+1. go to the setting and add - "emmet.includeLanguages":{
+"javascript":"javascriptreact"
+},
+
+c. First COmponent in Detail 
+ 
+const Greeting = () => {
+ return React.createElement('h1',{}, 'hello world');
+};
+
+const Greeting = () => {
+ return React.createElement('div', {}, 
+React.createElement('h1',{},'hello world');
+};
+
+
+ReactDom.render(<Greeting />, document.getElementById('root')); 
+
+Note: JSX help to write bunch of code of 
+
+d. JSX Rules 
+
+function Greeting() {
+  return (
+    // yesari sabai lai div lay closing garnu vanda react fragment use garda ramro dakinxa -  <div>
+    <React.Fragment>
+      <div>
+        <h1>Hello world</h1>
+        <ul>
+          <a href="#">
+            <li>Hello World</li>
+          </a>
+        </ul>
+      </div>
+    </React.Fragment>
+  );
+}
+
+
+1. We should write code into single div
+2. don't palce every section in dev we can use section or article or Fragment
+3. use camelCase for html attribute - like onClick or className
+4. className instead of class 
+5. close every element
+6. formatting 
+
+5. Nested Components and Tools 
