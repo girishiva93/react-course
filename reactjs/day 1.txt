@@ -1,4 +1,4 @@
-React Js Course - Day 1 
+ React Js Course - Day 1 
 
 1. How to install react js - npx create-react-app my-app
  npm start 
@@ -219,20 +219,91 @@ return (
 
 12. - props - children 
 
+function BookList () {
+return (
+<section className = 'booklist'>
+<Book job='developer' />
+<Book title = 'random title' number={22}>
+<p> description .... </p>
+</Book>
+</section>
+);
+}
+
+const Book = ({img, title, author, children}) => {
+return (
+<article className = 'book'>
+<img src = {img} alt ='' />
+<h1> {title} </h1>
+<h4> {author} </h2>
+{children}
+</article>
+)
+};
+
+index.css
+
+.booklist {
+align-items:start;
+}
+
+13. Simple List 
+
+index.js 
+
+const books = [
+{
+img = 'photo link',
+title = 'Book Name',
+author = 'Amelia Hepworth',
+},
+{
+img = 'photo link',
+title = 'Book Name',
+author = 'Amelia Hepworth',
+},
+];
+
+function BookList(){
+return <section className = 'booklist'>
+{books.map((book) => {
+const {img, title, author} = book;
+return ( <div> 
+<Book book= {book}</Book>
+);
+})}
+</section>
+);
+}
+
+const Book = (props) => {
+const {img, title, author } = props.book;
+return (
+<article className = 'book'>
+<img src = {img} alt ='' />
+<h1> {title} </h1>
+<h4> {author} </h2>
+
+</article>
+)
+};
+
+15. key prop and spread operator
+
+Step 1: add id to each array 
 
 
+Step 2 : 
 
-
-
-
-
-
-
-
-
-
-
-
-
+function BookList(){
+return <section className = 'booklist'>
+{books.map((book) => {
+return ( <div> 
+<Book key = {book.id} {...book} // spread operator </Book>
+);
+})}
+</section>
+);
+}
 
 
