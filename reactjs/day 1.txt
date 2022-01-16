@@ -306,4 +306,85 @@ return ( <div>
 );
 }
 
+16. Event Basic 
+
+index.js
+
+const Book = (props) => {
+const {img, title, author } = props.book;
+
+const clickHandler = (e) => {
+console.log(e);
+console.log(e.target);
+alert('Hello World');
+};
+
+const complexExample = (author ) => {
+console.log(author);
+};
+
+
+return (
+<article className = 'book' onMouseOver={()=>{
+console.log(title);
+}}>
+<img src = {img} alt ='' />
+<h1> {title} </h1>
+<h4> {author} </h2>
+<button type='button' onClick = {clickHandler}> reference example
+</button>
+<button type='button' onClick = { () => complexExample(author)}> More Complex Example
+</button>
+
+</article>
+)
+};
+
+
+
+17 Import and Export Statements 
+
+step 1: create a file name - books.js
+step 2: create a file name - book.js
+
+books.js
+
+copy the array and paste it into it.
+
+export const books = [
+...
+]
+
+
+Book.js
+// Step 1 - write rafce into the first line of code 
+step 2 - copy the Book component into the index.js and paste it into Book.js
+
+index.js
+import {books} from './books';
+import Book from './Book'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
