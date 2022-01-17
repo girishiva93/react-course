@@ -1,0 +1,238 @@
+Folder Name - React Hooks and Advanced Topics 
+
+5- useState - Simple Use Case 
+ 
+filepath - tutorial -> 1-useState -> setup -> 1-error-example.js
+
+import React from "react";
+
+const ErrorExample = () => {
+  let title = "Hello world";
+
+  const handleClick = () => {
+    title = "Title were Change";
+    console.log(title);
+  };
+  return (
+    <>
+      <h2>{title}</h2>
+      <button type="button" onClick={handleClick} className="btn">
+        Change Title
+      </button>
+    </>
+  );
+};
+
+export default ErrorExample;
+
+
+App.js
+
+import React from 'react';
+import Setup from './tutorial/1-useState/setup/1-error-example';
+
+function App () {
+return (
+<div className = 'container'>
+<Setup /> 
+</div>
+);
+}
+
+export default App;
+
+6- useState - Basics 
+
+app.js
+
+import Setup from './tutorial/1-useState/setup/2-useState-basics';
+
+function App () { 
+
+return(
+<div className = 'container' >
+<Setup />
+</div>
+};
+}
+export default App;
+
+filepath - tutorial -> 1-useState -> setup -> 2-useState-basics.js
+
+2-useState-basics.js
+
+import React, {useState} from 'react;
+
+const UseStateBasics = () => {
+
+const [text, setText] = useState('random title');
+
+const handleClick = () => {
+if (text === "random text") {
+
+   setText('hello world');
+}
+else{
+setText('random title');
+}
+};
+return (
+<React.Fragment>
+<h1>{text}</h1>
+<button className = 'btn' onClick = {handleClick}> change title </button>
+</Reac.Fragment>
+);
+};
+
+export default UseStateBasics; 
+
+//UseState = ["value", function]
+
+
+7- General Rules of Hooks 
+// Use 
+// component name must be uppercase 
+// must be in the function/component body
+// cannot call conditionally 
+
+8 - useState - Array Example  
+
+app.js 
+
+import Setup from './tutorial/1-useSatate/setup/3-useState-array;
+
+function App () { 
+
+return(
+<div className = 'container' >
+<Setup />
+</div>
+};
+}
+
+export default App;
+
+3-useState-array.js
+
+import React from 'react';
+import {data} from '../../../data';
+
+const UseStateArray = () => {
+const [people, setPeople] = React.useState(data);
+return <>
+{
+people.map((person) => {
+console.log(person);
+const {id, name } = person
+
+
+const removeItem = (id) => {
+let newPeople - people.filter((person) => person.id !== id)
+setPeople(newPeople)
+}
+
+
+return <div key = {id} className = 'item' > 
+<h4> {name} </h4> 
+<button onClick = {() => removeItem(id)> remove</button>
+</div>
+);
+})
+}
+<button className = "btn" onClick = {() => setPeople([])}>
+clear Items
+ </button>
+</>
+
+};
+
+export default UseStateArray;
+
+*********
+data.js
+export const data = [
+{id:1,
+name: 'john', },
+{id:2,
+name:'peter' },
+{id: 3, 
+name:'susan' },
+{id:4, 
+name: 'anna' },
+];
+
+
+*************************
+9 - useState - Object Example 
+
+import Setup from './tutorial/1-useSate/setup/4-useState-object';
+
+function App () { 
+
+return (
+<div className = 'container'>
+<Setup />
+</div>
+);
+}
+export default App; 
+
+4-useState-object.js
+
+import React, {useState} from 'react';
+
+const UseStateObject = () =>{
+const [person, setPerson] = useState({name:'peter', age:24, message:'random message',})
+
+/// ...person - split function 
+
+const changeMessage = () => {
+setPerson({ ...person, message: 'hello world' });
+
+};
+ 
+return <>
+<h3> {person.name}</h3>
+<h3>{person.age}</h3>
+<h3>{person.message}</h3>
+<button className = 'btn' onClick = {changeMessage} >
+change Message 
+</button>
+</>
+);
+};
+
+export default UseStateObject;
+
+
+10 - useState - multiple State Values 
+
+const [name, setName] = useState('Shiva');
+const [age, setAge] = useState(24);
+const [message, setMessage] = useState('random message');
+
+const changeMessage = () => {
+setMessage('hello world');
+
+};
+
+return ( 
+<>
+<h3> {name} </h3>
+<h3> {age} </h3>
+<h3> {message} </h3>
+</>
+
+********************************
+11. simple Counter
+
+
+
+
+
+
+
+
+
+
+
