@@ -226,10 +226,294 @@ return (
 ********************************
 11. simple Counter
 
+App.js
+
+import Setup from './tutorial/1-useState/setup/5-useState-counter';
+
+
+function App() {
+return App () {
+return (
+<div className = 'container'>
+<Setup />
+</div>
+);
+}
+
+export default App;
+
+
+5-useState-counter.js
+
+
+import React, {useState} from 'react';
+
+const UseStateCounter = () => {
+const [value, setValue] = useState(0);
+
+const reset = () => {
+setValue(0)
+}
+
+return <>
+<section style = {{margin:'4rem 0' }}>
+<h2> regular counter </h2>
+<h1>{value}</h1>
+<button className = "btn" onClick ={() => setValue(value -1)}> decrease </button>
+<button className = "btn" onClick ={reset} > Reset </button>
+<button className = "btn" {() => setValue(value + 1)}> Increase </button>
+
+</section>
+</>
+);
+};
+
+export default UseStateCounter;
+
+12 - Functional Update Form 
+
+5-useState-counter.js
+
+import React, {useState} from 'react';
+
+const UseStateCounter = () => {
+const [value, setValue] = useState(0);
+
+const reset = () => {
+setValue(0)
+}
+
+const complexIncrease = () => {
+
+setTimeout(() => {
+// setValue(value+1);
+setValue((prevState) => {
+return prevState + 1; 
+});
+}, 2000)
+
+}
+
+return <>
+<section style = {{margin:'4rem 0' }}>
+<h2> more complex counter </h2>
+<h1>{value}</h1>
+<button className = "btn" onCLick = {complexIncrease}> increase later</button>
+</section>
+</>
+);
+};
+
+export default UseStateCounter;
+
+*******************************************
+14. useEffect Basics
+
+path = './tutorial/2-useEffect/setup/1-useEffect-basics';
+
+app.Js
+import React from 'react';
+import Setup from './tutorial/2-useEffect/setup/1-useEffect-basics';
+
+function App () {
+return ( 
+<div className = 'container'> 
+<Setup /> 
+</div>
+);
+}
+export default App;
+
+
+1-useEffect-basics.js
+
+import React, {useState, useEffect } from 'react';
+// bydefault runs after every re-render 
+// cleanup function 
+// second parameter 
+
+const UseEffectBasics = () => {
+
+const [value, setValue] = useState(0);
+
+useEffect (() => {
+console.log('call useEffect');
+document.title = `New Message (${value})`;
+});
+
+console.log('render component');
+return (
+<>
+<h1>{value}</h1>
+<button className = "btn" onClick = {() => setValue(value + 1)}>
+click me
+</button>
+</> 
+);
+};
+
+export default UseEffectBasics;
+
+
+useEffect is used when we want to setup sideeffect and i.e. some work outside of the component 
+*********************************** 
+15 - useEffect - Conditional 
+
+import React, {useState, useEffect } from 'react';
+
+const UseEffectBasics = () => {
+
+const [value, setValue] = useState(0);
+
+
+useEffect (() => {
+console.log('call useEffect');
+if (value >= 1) {
+document.title = `New Message (${value})`;
+}});
+
+console.log('render component');
+return (
+<>
+<h1>{value}</h1>
+<button className = "btn" onClick = {() => setValue(value + 1)}>
+click me
+</button>
+</> 
+);
+};
+
+export default UseEffectBasics;
+
+
+15 - useEffect Dependency List
+
+
+import React, {useState, useEffect } from 'react';
+
+const UseEffectBasics = () => {
+
+const [value, setValue] = useState(0);
+
+
+useEffect (() => {
+console.log('call useEffect');
+if (value >= 1) {
+document.title = `New Message (${value})`;
+}
+}, [value]);
+
+useEffect (() => {
+console.log('hello world');
+}, []);
+
+console.log('render component');
+return (
+<>
+<h1>{value}</h1>
+<button className = "btn" onClick = {() => setValue(value + 1)}>
+click me
+</button>
+</> 
+);
+};
+
+export default UseEffectBasics;
+
+*******************************
+17 - useEffect - Cleanup Function
+
+2-useEffect-cleanup.js
+
+import React, {useState, useEffect } from 'react';
+
+//cleanup function 
+//second agrument 
+
+const UseEffectCleanup - () => {
+const [size, setSize] = useState(window.innerwidth);
+
+const checkSize = () => {
+setSize(window.innerWidth)
+}
+
+useEffect (() => {
+console.log('useEffect');
+window.addEventListener('resize', checkSize)
+// return () => {
+// console.log('cleanup');
+// window.removeEventListener('resize', checkSize)
+// }
+}, [])
+cobsole.log('render');
+return <> 
+<h1> Window </h1>;
+<h2> {size} PX </h2>
+</>
+
+};
+
+export default useEffectCleanup;
 
 
 
+*****************************
 
+18. useEffect - Fetch Data
+
+3-useEffect-fetch-data
+
+App.js
+
+import Setup from './tutorial/2-useEffect/setup/3-useEffect-fetch-data';
+
+ aaru sabai same nai ho mathi ko 
+
+
+
+3-useEffect-fetch-data.js 
+
+import React, {useState, useEffect} from 'react';
+
+const url = 'https://api.github.com/users';
+
+// secind agrument 
+
+
+const UseEffectSecondAgrument = () => {
+
+
+const [users, setUsers] = useState([]);s
+
+const getUsers = async () => {
+	const response = await fetch(url);
+	const users = await response.json();
+	console.log(users);
+	SetUsers(users);
+}
+
+useEffect(() => {
+	getUsers();
+}, [])
+
+return ( 
+<>
+<h2> github UsersData </h2>;
+{users.map((user) => {
+const {id, login, avatar_url, html_url} = user
+return <li key = {id}>
+<img src = {avatar_url} alt = {login} />
+<div> 
+<h4> {login} </h4>
+< a href = {html_url}> profile </a>
+</div>
+ </li>
+})}
+</>
+);
+};
+
+export default UseEffectSecondArgument; 
 
 
 
