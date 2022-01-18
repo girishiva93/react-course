@@ -499,6 +499,7 @@ useEffect(() => {
 return ( 
 <>
 <h2> github UsersData </h2>;
+<ul className = 'users'>
 {users.map((user) => {
 const {id, login, avatar_url, html_url} = user
 return <li key = {id}>
@@ -509,6 +510,7 @@ return <li key = {id}>
 </div>
  </li>
 })}
+</ul>s
 </>
 );
 };
