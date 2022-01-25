@@ -13,7 +13,11 @@ import "./App.css";
 
 // import SetUp from "./tutorial/4-forms/setup/1-controlled-inputs";
 
-import SetUp from "./tutorial/4-forms/setup/2-multiple-inputs";
+// import SetUp from "./tutorial/4-forms/setup/2-multiple-inputs";
+
+// import SetUp from "./tutorial/5-useRef/setup/1-useRef-basics";
+
+import SetUp from "./tutorial/6-useReducer/setup";
 function App() {
   return (
     <div className="container">

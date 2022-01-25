@@ -871,6 +871,421 @@ import from 'tutorial/4-forms/setup/2-multiple-inputs';
 
 same as other code 
 
-2-multiple-inputs.js
+2-multiple-inputs.js  
+import React, { useState } from "react";
+
+const ControlledInputs = () => {
+  const [people, setPeople] = useState([]);
+  const [person, setPerson] = useState({ firstName: "", email: "", age: "" });
+
+  const handleChange = (e) => {
+    const name = e.target.name; // yesle tei hamro input ma rakhe ko name vanne kura lako xa
+    const value = e.target.value; // yesle tei hamro input  ma rakhe ko value vanne kura lako xa
+    setPerson({ ...person, [name]: value }); // [name] yesari kina name rakheko vane hamro multiple inputs xa so multiple inputs ma hami lay firstname, email, age pass gareko xam
+    // console.log(name, value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (person.firstName && person.email && person.age) {
+      e.preventDefault();
+      const newPeople = { ...person, id: new Date().getTime().toString() };
+      setPeople([...people, newPeople]);
+      //   form fill up garera submit garesi empty garne value
+      setPerson({ firstName: "", email: "", age: "" });
+    } else {
+      console.log("Some field is missing ");
+    }
+  };
+  return (
+    <>
+      <article>
+        <form className=" form ">
+          <div className="form-control">
+            <label htmlFor="firstName"> Name: </label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              value={person.firstName}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-control">
+            <label htmlFor="email"> Email: </label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value={person.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-control">
+            <label htmlFor="Age"> Age: </label>
+            <input
+              type="text"
+              id="age"
+              name="age"
+              value={person.age}
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit" onClick={handleSubmit}>
+            {" "}
+            add person{" "}
+          </button>
+        </form>
+        {people.map((person) => {
+          const { id, firstName, email, age } = person;
+          return (
+            <div className="item" key={id}>
+              <h4>{firstName}</h4>
+              <p>{age}</p>
+              <p>{email}</p>
+            </div>
+          );
+        })}
+      </article>
+      ;
+    </>
+  );
+};
+
+export default ControlledInputs;
+
+**************************************
+30 - useRef
+
+App.js
+
+import SetUp from "./tutorial/5-useRef/setup/1-useRef-basics";
+function App() {
+  return (
+    <div className="container">
+      {/* <ErrorExample /> */}
+      <SetUp />
+    </div>
+  );
+}
+
+export default App;
+
+
+
+1-useRef-basics.js
+
+import React, {useEffect, useRef} from "react";
+
+const UseRefBasics = () => {
+const refContainer = useRef(null);
+const divContainer = useRef(null);
+
+const handleSubmit = (e) => {
+e.preventDefault();
+console.log(refContainer.current.value);
+console.log(divContainer.current);
+}
+
+useEffect (() => {
+console.log(refContainer.current);
+refContainer.current.focus();
+});
+
+  return <>
+<form className = "form" onSubmit = {handleSubmit}>
+<div>
+<input type='text' ref = {refContainer} />
+<button type = 'submit'> submit </button>
+</div>
+</form>
+<div ref = {divContainer}>
+hello world
+</div>
+ </>
+};
+
+export default UseRefBasics;
+
+***********************************
+32 - useReducer - useState setup
+
+Folder Name - useReducer 
+
+fileName - index.js
+fileName - Modal.js
+
+app.js
+
+import SetUp from "./tutorial/6-useReducer/setup";
+function App() {
+  return (
+    <div className="container">
+      {/* <ErrorExample /> */}
+      <SetUp />
+    </div>
+  );
+}
+
+export default App;import SetUp from "./tutorial/6-useReducer/setup";
+function App() {
+  return (
+    <div className="container">
+      {/* <ErrorExample /> */}
+      <SetUp />
+    </div>
+  );
+}
+
+export default App;
+
+index.js 
+
+import React, { useState, useReducer } from "react";
+import Modal from './Modal';
+
+import {data} from '../../../data';
+
+const Index = () => {
+const [name, setName] = useState('')
+const [people, setPeople] = useState(data);
+const [showModal, setShowModal] = useState(false);
+
+const handleSubmit = (e) => {
+e.preventDefault();
+if(name) {
+setshowModal(true);
+setPeople([...people], {id:new Date().getTime().toString(), name}]);
+setName('');
+}
+else {
+setshowModal(true);
+}
+}
+
+  return <>
+{showModal && <Modal />}
+<form onSubmit = {handleSubmit}>
+<div>
+<input type = "text" value = {name} onChange{(e) => setName(e.target.value)} /> 
+</div>
+<button type'submit'> add</button>
+</form>
+{people.map((person) => {
+return <div key = {person.id}>
+<h4>{person.name}</h4>
+</div>
+})}
+</>
+};
+
+export default Index;
+
+Modal.js
+
+import React, {useEffect} from 'react';
+
+const Modal = () => {
+return <div>i'm modal</div>
+};
+
+export default Modal;
+
+
+********************************
+
+33 - UseReducer - Refactor 
+
+index.js
+
+index.js 
+
+import React, { useState, useReducer } from "react";
+import Modal from './Modal';
+
+import {data} from '../../../data';
+
+//reducer function 
+
+const reducer = (state, action) => {
+
+}
+
+const defaultState = {
+people:[],
+isModelOpen:false,
+modalContent: 'hello world'
+}
+
+const Index = () => {
+const [name, setName] = useState('');
+const [state, dispatch] = useReducer(reducer,defaultState)
+
+const handleSubmit = (e) => {
+e.preventDefault();
+if(name) {
+ 
+}
+else {
+
+}
+}
+
+  return <>
+{state.isModalOpen && <Modal modalContent = {state.modalContent} />}
+<form onSubmit = {handleSubmit}>
+<div>
+<input type = "text" value = {name} onChange{(e) => setName(e.target.value)} /> 
+</div>
+<button type'submit'> add</button>
+</form>
+{
+state.people.map((person) => {
+return <div key = {person.id}>
+<h4>{person.name}</h4>
+</div>
+})
+}
+</>
+};
+
+export default Index;
+
+Modal.js 
+
+import React, {useEffect} from 'react';
+
+const Modal = ({modalContent}) => {
+return <div className = 'modal'>
+<p>{modalContent}</p>
+</div>
+};
+
+export default Modal;
+
+
+34 - useReducer - Add Item 
+
+index.js 
+
+
+import React, { useState, useReducer } from "react";
+import Modal from "./Modal";
+// import { data } from "../../../data";
+
+// Reducer Function
+const reducer = (state, action) => {
+  console.log(state);
+  if (action.type === "ITEM_ADDED") {
+    const newPeople = [...state.people, action.payload];
+    return {
+      ...state,
+      people: newPeople,
+      isModelOpen: true,
+      modalContent: "Item Added",
+    };
+  }
+  if (action.type === "NO_VALUE") {
+    return { ...state, isModelOpen: true, modalContent: "The Field is empty" };
+  }
+  if (action.type === "CLOSE_MODAL") {
+    return { ...state, isModelOpen: false };
+  }
+  if (action.type === "REMOVE_ITEM") {
+    const newPeople = state.people.filter(
+      (person) => person.id !== action.payload
+    );
+    return {
+      ...state,
+      people: newPeople,
+      isModelOpen: true,
+      modalContent: "Item has been Removed",
+    };
+  }
+  // return state;
+  throw new Error("No item were added");
+};
+
+const defaultState = {
+  people: [],
+  isModelOpen: false,
+  modalContent: "",
+};
+
+const Index = () => {
+  const [name, setName] = useState("");
+  const [state, dispatch] = useReducer(reducer, defaultState);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (name) {
+      const newPeople = { id: new Date().getTime().toString(), name };
+      dispatch({ type: "ITEM_ADDED", payload: newPeople });
+      setName("");
+    } else {
+      dispatch({ type: "NO_VALUE" });
+    }
+  };
+
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
+  };
+
+  return (
+    <>
+      {state.isModelOpen && (
+        <Modal modalContent={state.modalContent} closeModal={closeModal} />
+      )}
+      <form onSubmit={handleSubmit} className="form">
+        <div>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <button type="submit" className="btn">
+          {" "}
+          add
+        </button>
+      </form>
+      {state.people.map((people) => {
+        return (
+          <div key={people.id} className="item">
+            <h4>{people.name}</h4>
+            <button
+              type="button"
+              onClick={() =>
+                dispatch({ type: "REMOVE_ITEM", payload: people.id })
+              }
+            >
+              Remove
+            </button>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+export default Index;
+
+
+Note: ...state -> yo kina gareko vane yedi hami lai old values change garnu parxa vani hami lay first ma pura value lai copy garnu parxa 
+so ...state garesi hami lay state ma define gareko value haru sabai yesma aauw xa ani naya value ne sajilai add garna sakxam 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
