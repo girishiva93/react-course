@@ -1162,7 +1162,7 @@ return <div className = 'modal'>
 
 export default Modal;
 
-
+**********************************************8
 34 - useReducer - Add Item 
 
 index.js 
@@ -1273,16 +1273,129 @@ Note: ...state -> yo kina gareko vane yedi hami lai old values change garnu parx
 so ...state garesi hami lay state ma define gareko value haru sabai yesma aauw xa ani naya value ne sajilai add garna sakxam 
 
 
+36 - Prop Drilling 
+
+Folder Name - 7-prop-drilling 
+FOlder Name - setup
+file Name - 1-prop-drilling.js
+
+app.js 
+
+import React from 'react';
+import Setup from './tutorial/7-prop-drilling/setup/1-prop-drilling';
+
+function App(){
+return (
+<div className = 'container'>
+<Setup />
+</div>
+);
+}
+
+1-prop-drilling.js
+
+import React, {useState} from 'react';
+import data from '../../../data';
+
+const PropDrilling = () => {
+const[people, setPeople] = useState(data);
+
+const removePerson = (id) => {
+setPeople ((people) => {
+return people.filter((person) => person.id !== id)
+})
+}
+
+return <srction>
+<h3> prop drilling </h3> 
+<list people = {people} removePerson = {removePerson} /> 
+</section>
+}
+
+const List = ({people, removePerson }) => {
+return<>
+{people.map ((people) => {
+return <singlePerson key = {people.id} {...person} removePerson = {removePerson } />
+)}
+</>
+}
+
+const singlePerson = (id, name, removePerson ) => {
+return <div className = "item">
+<h4>{name}</h4>
+<button onClick = {()=> removePerson(id)}>remove
+ </div>
+}
+
+export default PropDrilling;
+
+
+*******************************
+37 - Context Api useContext 
+
+Folder Name - 8-useContext
+Folder Name - setup 
+file Name - 1-context-api
+
+app.js 
+
+import React from 'react';
+import Setup from './tutorial/8-useContext/setup/1-context-api';
+
+function App(){
+return (
+<div className = 'container'>
+<Setup />
+</div>
+);
+}
 
 
 
+1-context-api
+
+import React, {useState, useContext} from 'react';
+import data from '../../../data';
+
+const PersonContext = React.createContext();
+// two component - provider, consumer
 
 
+const ContextAPI= () => {
+const[people, setPeople] = useState(data);
 
+const removePerson = (id) => {
+setPeople ((people) => {
+return people.filter((person) => person.id !== id)
+})
+}
 
+return <PersonContext.Provider value={{removePerson, people}}>
+<h3> Context API/UseContext </h3> 
+<list /> 
+</PersonContext.Provider>
+}
 
+const List = () => {
+const mainData= useContext(PersonContext)
+return<>
+{mainData.map ((people) => {
+return <singlePerson key = {people.id} {...person} />
+)}
+</>
+}
 
+const singlePerson = (id, name) => {
 
+const {removePerson}= useContext(PersonContext)
+
+return <div className = "item">
+<h4>{name}</h4>
+<button onClick = {()=> removePerson(id)}>remove
+ </div>
+}
+
+export default ContextAPI;
 
 
 
