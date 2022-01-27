@@ -1397,6 +1397,190 @@ return <div className = "item">
 
 export default ContextAPI;
 
+*************************************
+39 - Custom Hooks - useFetch 
+
+Folder Name - 9-custom-hooks 
+Folder Name - setup
+file name - 1-fetch-example.js 
+file name - 2-useFetch.js
+
+1-fetch-example.js 
+
+import React, {useState, useEffect} from 'react';
+import {useFetch} from './2-useFecth'
+
+const url = 'https://course-api.netlify.app/api/javascript-store-product';
+
+const Example = () => {
+const {loading, products} = useFetch(url)
+console.log(products); 
+return(
+<div>
+<h2>{loading ? 'loading...' : 'data'}</h2>
+</div>
+)
+}
+
+2-useFetch.js
+
+import {useState, useEffect} from 'react';
+
+export const useFetch = (url) => {
+
+const [loading, setLoading] = useState(true);
+const[products, setProducts] = useState([]);
+
+const getProducts = async () => {
+const respond = await fetch(url);
+const products = await response.json();
+setProducts(products);
+setLoading(false);
+};
+
+useEffect (() => {
+getProducts();
+},[url]);
+
+return {loading, products}
+
+}
+
+**********************************
+40 - PropTypes - Setup
+
+Folder Name - 10-prop-types
+Foler Name - setup 
+file name - index.js 
+file name - Product.js 
+ 
+app.js 
+
+import React from 'react';
+import Setup from './tutorial/10-prop-types/setup';
+
+function App(){
+return (
+<div className = 'container'>
+<Setup />
+</div>
+);
+}
+
+
+index.js 
+
+import React from 'react';
+import Product from './Product';
+import {useFetch} from '../../9-custom-hooks/final/2-useFetch';
+const url = 'https.//course-api.netlify.app/api/react-prop-types-example'
+
+const Index = () => {
+const {product} = useFetch(url);
+return{
+<div>
+<h2>Products</h2>
+<section className='products'>
+{
+products.map((product) => {
+return <Product key={product.id} {...product} />;
+
+})
+}
+</section>
+</div>
+}
+}
+
+export default Index;
+
+Product.js
+
+import React from 'react';
+
+const Product = ({image, name, price}) => {
+return <article className = 'product'>
+<h4> single product </h4>
+// <img src={image.url} alt={name} />
+// <h4< {name} </h4>
+// <p>${price} </p>
+</article>
+}
+
+export default Product;
+
+***********************************
+41 - PropTypes - Images
+
+Product.js
+
+import React from 'react';
+import PropType from 'prop-types'
+import defaultImage from '../../../assets/image.url'
+
+const Product = ({image, name, price}) => {
+return <article className = 'product'>
+<img src={image.url} alt={name} />
+<h4< {name} </h4>
+<p>${price} </p>
+</article>
+}
+
+Product.propType = {
+image: PropTypes.object.isRequired,
+name: PropTypes.string.isRequired,
+price: PropTypes.string.isRequired
+};
+
+FolderName - assets 
+- add file here
+
+Product.defaultProps = {
+name:'default name',
+price: 3.99,
+image: defaultImage
+}
+
+export default Product;
+
+**********************************
+42 - PropTypes - Default Values 
+
+
+import React from 'react';
+import PropType from 'prop-types'
+import defaultImage from '../../../assets/image.url'
+
+const Product = ({image, name, price}) => {
+const url = image && image.url
+return <article className = 'product'>
+<img src={url || defaultImage} alt={name || 'default name'} />
+<h4> {name} </h4>
+<p>${price || 3.99} </p>
+</article>
+}
+
+Product.propType = {
+image: PropTypes.object.isRequired,
+name: PropTypes.string.isRequired,
+price: PropTypes.string.isRequired
+};
+
+FolderName - assets 
+- add file here
+
+//Product.defaultProps = {
+//name:'default name',
+//price: 3.99,
+//image: defaultImage
+//}
+
+Note - rafce for props type  for shortcut, 
+
+name : ptar -> PropTypes.array.isRequired,
+
+
+
 
 
 
