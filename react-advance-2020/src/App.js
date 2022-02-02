@@ -25,7 +25,11 @@ import "./App.css";
 
 // import SetUp from "./tutorial/9-custom-hooks/setup/1-fetch-example"
 
-import SetUp from "./tutorial/10-prop-types/setup"
+// import SetUp from "./tutorial/10-prop-types/setup"
+
+import SetUp from "./tutorial/11-React-Router/"
+
+
 function App() {
   return (
     <div className="container">
