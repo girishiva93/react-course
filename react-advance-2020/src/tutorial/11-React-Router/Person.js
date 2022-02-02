@@ -3,12 +3,12 @@ import { data } from "../../data";
 import { Link, useParams } from "react-router-dom";
 
 const Person = () => {
-  const [fullname, setFullname] = useState("default name");
-  const { name } = useParams();
+  const [name, setName] = useState("default name");
+  const { id } = useParams();
 
   useEffect(() => {
-    const newPerson = data.find((person) => person.name === parseInt(name));
-    setFullname(newPerson);
+    const newPerson = data.find((person) => person.id === parseInt(id));
+    setName(newPerson.name);
   }, []);
 
   return (

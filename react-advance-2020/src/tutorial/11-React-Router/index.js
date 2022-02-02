@@ -19,7 +19,7 @@ const ReactRouterSetup = () => {
         <Route exact path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/people" element={<People />}></Route>
-        <Route path="/person/:name" element={<Person />}></Route>
+        <Route path="/person/:id" element={<Person />}></Route>
         <Route path="*" element={<Error />}></Route>
       </Routes>
     </Router>
