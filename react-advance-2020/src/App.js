@@ -27,7 +27,9 @@ import "./App.css";
 
 // import SetUp from "./tutorial/10-prop-types/setup"
 
-import SetUp from "./tutorial/11-React-Router/"
+// import SetUp from "./tutorial/11-React-Router/"
+
+import SetUp from "./tutorial/12-memo-useMemo-useCallback/setup"
 
 
 function App() {

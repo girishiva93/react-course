@@ -1,4 +1,4 @@
-Folder Name - React Hooks and Advanced Topics 
+ Folder Name - React Hooks and Advanced Topics 
 
 5- useState - Simple Use Case 
  
@@ -1886,23 +1886,229 @@ Back to People
 
 export default Person;
 
+49 - React.Memo
+
+Folder Name - 12-memo-useMemo-useCallback
+Folder Name - setup
+file Name - index.js 
 
 
+App.js 
+
+- yesma index.js lai tanera dakhau ne 
 
 
+index.js 
+
+impoty React, {useState, useCallback, useMemo} from "react"
+import {useFetch} from '../../9-custom-hooks/final/2-useFetch'
+
+const url = "https://course-api.netlify.app/api/javascript-store-products";
+
+const Index = () => {
+const {products} = useFetch(url);
+const {count, setCount} = useState(0);
+
+return (
+<>
+<h1> count: {count} </h1> 
+<button className = 'btn' onclick = { () => setCount(count+1)}
+click me </button> 
+
+<BigList products = {products} /> 
+</>
+)
+}
+
+const BigList = React.memo(({ products }) => {
+
+useEffect (() => {
+console.log('big list called')
+})
+
+return(
+<section className = 'products'> 
+{
+product.map((product) => {
+return <SingleProduct key={product.id} {..product}>
+
+</SingleProduct>
+})
+}
+</section>
+)
+});
 
 
+const SingleProduct = ({fields}) => {
+
+useEffect (() => {
+console.count('Single item called')
+})
+
+let {name,price} = fields;
+price = price/100;
+const image = fields.image[0].url;
+
+return (
+
+<article className = 'product'> 
+<img src = {image} alt = {name} /> 
+<h4>{name}</h4>
+<p> ${price}</p> 
+</article> 
+)
+}
+
+export default Index;
+
+************************************
+50 - useCallback
 
 
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import { useFetch } from "../../9-custom-hooks/setup/2-useFetch";
+const url = "https://course-api.com/javascript-store-products";
+
+const Index = () => {
+  const { product } = useFetch(url);
+  const [count, setCount] = useState(0);
+  const [cart, setCart] = useState(0);
 
 
+const addToCart = useCallback(() => {
+	setCart(cart+1)
+},[cart]);
 
 
+return (
+    <>
+      <h1>Count : {count}</h1>
+      <button className="btn" onClick={() => setCount(count + 1)}>
+        click me
+      </button>
+<h1 style = {{marginTOp:''3rem}}> Cart : {cart}</h1>
+      <BigList products={product} addtoCart = {addToCart} />
+    </>
+  );
+};
 
+const BigList = React.memo(({ products, addToCart }) => {
+  useEffect(() => {
+    console.log("big list called");
+  });
+  return (
+    <section className="products">
+      {products.map((product) => {
+        return <SingleProduct key={product.id} {...product}
+addToCart = {addToCart}></SingleProduct>;
+      })}
+    </section> 
+  );
+});
 
+const SingleProduct = ({ fields }) => {
+  useEffect(() => {
+    console.count("Single item called");
+  });
 
+  let { name, price } = fields;
+  price = price / 100;
+  const image = fields.image[0].url;
 
+  return (
+    <article className="product">
+      <img src={image} alt={name} />
+      <h4>{name}</h4>
+      <p>${price}</p>
+<button onClick = {addToCart}> Add to Cart</button>
+    </article>
+  );
+};
+export default Index;
 
+*******************************
+51 - useMemo
+
+index.js
+
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import { useFetch } from "../../9-custom-hooks/setup/2-useFetch";
+const url = "https://course-api.com/javascript-store-products";
+
+const calculateMostExpensive = (data) => {
+return data.reduce((total,item) => {
+const price = item.fields.price
+
+if(price >=total){
+total = price;
+}
+return total
+},0)/100
+}
+
+const mostExpensive = useMemo (() => calculateMostExpensive(products),[product])
+
+const Index = () => {
+  const { product } = useFetch(url);
+  const [count, setCount] = useState(0);
+  const [cart, setCart] = useState(0);
+
+  const addToCart = useCallback(() => {
+    setCart(cart + 1);
+  }, [cart]);
+
+  return (
+    <>
+      <h1>Count : {count}</h1>
+      <button className="btn" onClick={() => setCount(count + 1)}>
+        click me
+      </button>
+      <h1 style={{ marginTOp: "3rem" }}> Cart : {cart}</h1>
+<h1>Most Expensive : ${calculateMostExpensive}</h1>      
+<BigList products={product} addToCart={addToCart} />
+    </>
+  );
+};
+
+const BigList = React.memo(({ products, addToCart }) => {
+  useEffect(() => {
+    console.log("big list called");
+  });
+  return (
+    <section className="products">
+      {products.map((product) => {
+        return (
+          <SingleProduct
+            key={product.id}
+            {...product}
+            addToCart={addToCart}
+          ></SingleProduct>
+        );
+      })}
+    </section>
+  );
+});
+
+const SingleProduct = ({ fields, addToCart }) => {
+  useEffect(() => {
+    console.count("Single item called");
+  });
+
+  let { name, price } = fields;
+  price = price / 100;
+  const image = fields.image[0].url;
+
+  return (
+    <article className="product">
+      <img src={image} alt={name} />
+      <h4>{name}</h4>
+      <p>${price}</p>
+      <button onClick={addToCart}>Add to Cart</button>
+    </article>
+  );
+};
+export default Index;
 
 
 

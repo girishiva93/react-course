@@ -63,7 +63,7 @@ const BigList = React.memo(({ products, addToCart }) => {
 })
 
 const SingleProduct = ({ fields, addToCart }) => {
-  let { name, price } = fields
+  let { name, price } = fields;
   price = price / 100
   const image = fields.image[0].url
 
